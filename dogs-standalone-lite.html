@@ -1,0 +1,1802 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DOGS 狗狗人格测试</title>
+    <meta
+      name="description"
+      content="24 道真实养狗场景题，生成治愈系狗狗人格卡和总结报告。"
+    />
+    <style>
+:root {
+  --cream: #fff8ec;
+  --paper: #fffdf8;
+  --oat: #ead7bd;
+  --latte: #c79a72;
+  --brown: #3b2c22;
+  --muted: #8b674a;
+  --sage: #dfead2;
+  --mint: #e9f3ed;
+  --peach: #f6dcc8;
+  --line: rgba(92, 67, 47, 0.16);
+  --shadow: 0 24px 70px rgba(91, 63, 36, 0.14);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 8% 8%, rgba(231, 241, 216, 0.95) 0 12rem, transparent 12.5rem),
+    radial-gradient(circle at 92% 12%, rgba(246, 220, 200, 0.85) 0 14rem, transparent 14.5rem),
+    linear-gradient(135deg, #fff8ec 0%, #fffdf7 52%, #eff6ed 100%);
+  color: var(--brown);
+  font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+}
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+
+.site-shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 72px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.1fr) 420px; gap: 34px; align-items: stretch; min-height: 620px; }
+.hero-solo { grid-template-columns: minmax(0, 1fr); min-height: auto; }
+.hero-copy, .hero-card, .quiz-panel, .result-section, .waiting-card, .system-section {
+  border: 1px solid var(--line);
+  background: rgba(255, 253, 248, 0.86);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+.hero-copy { border-radius: 42px; padding: clamp(32px, 6vw, 74px); display: flex; flex-direction: column; justify-content: center; }
+.hero-solo .hero-copy { max-width: 860px; margin: 0 auto; width: 100%; text-align: center; }
+.hero-solo .hero-text { margin: 0 auto; }
+.hero-solo .hero-actions { justify-content: center; }
+.eyebrow { margin: 0 0 14px; color: var(--latte); font-size: .86rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+h1, h2, h3, p { margin-top: 0; }
+h1 { max-width: 760px; margin-bottom: 22px; font-size: clamp(2.7rem, 6vw, 5.4rem); font-weight: 900; letter-spacing: -.06em; line-height: 1.02; }
+.title-line { display: block; }
+.hero-text, .public-note { max-width: 680px; color: var(--muted); font-size: clamp(1rem, 2vw, 1.22rem); line-height: 1.9; }
+.hero-text { display: grid; gap: 8px; }
+.hero-text-line { display: block; }
+.public-note { margin-top: 12px; padding: 14px 16px; border-radius: 20px; background: #f2f7ec; color: #6e8057; font-weight: 700; }
+.hero-actions, .result-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+.primary-link, .secondary-link, .result-actions button {
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 22px;
+  text-decoration: none;
+  font-weight: 800;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.primary-link, .result-actions button:not(.ghost-button) { background: var(--brown); color: #fff9ed; box-shadow: 0 12px 26px rgba(59, 44, 34, .24); }
+.secondary-link, .ghost-button { background: #f5ead8; color: var(--brown); }
+.primary-link:hover, .secondary-link:hover, .result-actions button:hover { transform: translateY(-2px); }
+
+.hero-card {
+  border-radius: 42px;
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-card::before, .share-card::before {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 2px dashed rgba(139, 103, 74, .18);
+  border-radius: 30px;
+  pointer-events: none;
+}
+.paw {
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 28px;
+  border-radius: 50%;
+  background: var(--sage);
+  color: var(--latte);
+  display: grid;
+  place-items: center;
+  font-size: 36px;
+}
+.hero-card p { color: var(--muted); font-weight: 900; letter-spacing: .08em; }
+.hero-card strong { display: block; font-size: clamp(4rem, 11vw, 6.5rem); letter-spacing: -.08em; line-height: 1; }
+.hero-card h2 { margin: 12px 0 24px; font-size: 1.7rem; }
+
+.mini-tags, .card-keywords, .report-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.mini-tags { justify-content: center; }
+.mini-tags span, .card-keywords em, .report-tags em {
+  border-radius: 999px;
+  background: #f6efe2;
+  color: var(--muted);
+  padding: 8px 12px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.system-section, .quiz-section, .result-section, .waiting-card { margin-top: 34px; }
+.system-section { border-radius: 38px; padding: clamp(24px, 4vw, 44px); }
+.section-heading { max-width: 760px; }
+.section-heading h2 { margin-bottom: 10px; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.08; letter-spacing: -.05em; }
+.section-heading p:not(.eyebrow), .report-body, .waiting-card p, .overview-copy p, .report-list-item p, .bar-item small, .report-tagline { color: var(--muted); line-height: 1.9; }
+.centered { margin: 0 auto 28px; text-align: center; }
+
+.axis-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+.axis-card, .question-card, .report-block {
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255,255,255,.58);
+}
+.axis-card { padding: 22px; }
+.axis-card span { color: var(--latte); font-size: .88rem; font-weight: 800; }
+.axis-card h3 { margin: 14px 0 12px; font-size: 2.1rem; }
+.axis-card em { color: var(--oat); font-style: normal; }
+.axis-card p { min-height: 70px; color: var(--muted); line-height: 1.7; }
+.axis-card div { display: flex; justify-content: space-between; color: var(--muted); }
+
+.quiz-panel { border-radius: 42px; padding: clamp(22px, 4vw, 44px); }
+.profile-row { display: grid; grid-template-columns: 1fr 220px; gap: 16px; margin: 24px 0; }
+label { display: grid; gap: 10px; color: var(--muted); font-weight: 800; }
+input, select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fffaf1;
+  color: var(--brown);
+  outline: none;
+  padding: 15px 16px;
+}
+input:focus, select:focus { border-color: rgba(199,154,114,.8); box-shadow: 0 0 0 4px rgba(199,154,114,.14); }
+.progress-wrap {
+  position: sticky;
+  top: 12px;
+  z-index: 5;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255,253,248,.92);
+  padding: 16px;
+  backdrop-filter: blur(12px);
+}
+.progress-wrap > div:first-child, .bar-item > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-weight: 800;
+}
+.progress-track, .bar-track {
+  height: 12px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: #f1e3cf;
+  overflow: hidden;
+}
+.progress-track i, .bar-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #d8b28c, #92aa75);
+  transition: width .28s ease;
+}
+.question-list { display: grid; gap: 18px; margin-top: 24px; }
+.question-card { padding: 20px; }
+.question-title { display: grid; grid-template-columns: 54px 1fr; gap: 14px; align-items: start; margin-bottom: 16px; }
+.question-title span {
+  border-radius: 18px;
+  background: var(--sage);
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+  height: 46px;
+  font-weight: 900;
+}
+.question-title h3 { margin: 6px 0 0; font-size: 1.22rem; line-height: 1.5; }
+.option-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+.option {
+  min-height: 74px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: #fffaf1;
+  color: var(--brown);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  text-align: left;
+  line-height: 1.55;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+.option b {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #f0dfca;
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+}
+.option:hover, .option.selected { transform: translateY(-1px); border-color: rgba(146,170,117,.75); background: #f2f7ec; }
+.option.selected b { background: #92aa75; color: #fff; }
+
+.result-section { border-radius: 42px; padding: clamp(24px, 4vw, 48px); }
+.result-layout { display: grid; grid-template-columns: 420px 1fr; gap: 22px; align-items: start; }
+.share-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 620px;
+  border-radius: 38px;
+  background: radial-gradient(circle at 20% 10%, rgba(223,234,210,.9), transparent 28%), radial-gradient(circle at 90% 18%, rgba(246,220,200,.9), transparent 30%), #fffdf8;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.share-card p { color: var(--muted); font-weight: 900; letter-spacing: .08em; }
+.share-card strong { display: block; line-height: 1.1; }
+.share-card > span, .share-card small { color: var(--muted); font-weight: 800; }
+.share-card blockquote { margin: 18px 0 0; color: var(--brown); font-size: 1.05rem; line-height: 1.8; }
+.result-card-media {
+  position: relative;
+  z-index: 1;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #fff7ea;
+  border: 1px solid rgba(139, 103, 74, 0.14);
+  box-shadow: 0 16px 40px rgba(91, 63, 36, 0.12);
+}
+.result-card-media img { display: block; width: 100%; height: auto; }
+.share-card-fallback {
+  position: relative;
+  z-index: 1;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 18px 12px;
+}
+.share-card-fallback strong { font-size: 6rem; letter-spacing: -.08em; }
+.share-card-fallback h3 { margin: 14px 0 18px; font-size: 2rem; }
+.share-card-footer { position: relative; z-index: 1; display: grid; gap: 8px; padding: 6px 4px 2px; }
+.share-card-label {
+  margin: 0;
+  color: var(--latte) !important;
+  font-size: .82rem;
+  font-weight: 900;
+  letter-spacing: .12em !important;
+  text-transform: uppercase;
+}
+.share-card-footer strong { font-size: 1.6rem; color: var(--brown); }
+.share-card-footer span { color: var(--muted); font-weight: 800; }
+.share-card-footer small { line-height: 1.7; }
+
+.report-stack { display: grid; gap: 16px; }
+.report-block { padding: 22px; }
+.report-block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.report-kicker {
+  color: var(--latte);
+  font-size: .86rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.report-block-head strong { color: var(--brown); font-size: 1.3rem; }
+.identity-block h3 { margin-bottom: 10px; font-size: 1.9rem; line-height: 1.2; }
+.report-tagline { margin-bottom: 14px; font-weight: 800; }
+.report-body { margin: 0; }
+.report-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.report-list-item {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 14px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(139, 103, 74, 0.12);
+  background: #fffaf1;
+}
+.report-list-item span { color: var(--latte); font-size: 1rem; line-height: 1.5; font-weight: 900; }
+.report-list-item p { margin: 0; }
+.report-list-item-tips { background: #f7f3ea; }
+.report-list-item-warning { background: #fff4eb; }
+.report-list-item-soft { background: #f2f7ec; }
+
+.bar-list { display: grid; gap: 18px; }
+.overview-details {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(246, 239, 226, 0.62);
+}
+.overview-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 132px;
+  gap: 16px;
+  align-items: center;
+  list-style: none;
+  cursor: zoom-in;
+}
+.overview-summary::-webkit-details-marker { display: none; }
+.overview-copy {
+  display: grid;
+  gap: 10px;
+}
+.overview-copy strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: var(--brown);
+  color: #fff9ed;
+  font-weight: 800;
+}
+.overview-summary img,
+.overview-expanded img {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid rgba(139, 103, 74, 0.14);
+  box-shadow: 0 10px 24px rgba(91, 63, 36, 0.12);
+}
+.overview-expanded {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+.overview-expanded p {
+  margin: 12px 0 0;
+  color: var(--muted);
+  text-align: center;
+  font-weight: 800;
+}
+
+.waiting-card { border-radius: 34px; padding: 34px; text-align: center; }
+
+@media (max-width: 920px) {
+  .hero, .result-layout, .axis-grid { grid-template-columns: 1fr; }
+  .hero { min-height: auto; }
+  .axis-card p { min-height: auto; }
+  .overview-summary { grid-template-columns: 1fr; }
+  .overview-summary img { max-width: 220px; }
+}
+
+@media (max-width: 640px) {
+  .site-shell { width: min(100% - 20px, 1180px); padding-top: 20px; }
+  .hero-copy, .hero-card, .quiz-panel, .result-section, .system-section { border-radius: 28px; }
+  h1 { font-size: 3.15rem; }
+  .profile-row, .option-grid { grid-template-columns: 1fr; }
+  .question-title { grid-template-columns: 1fr; }
+  .share-card { min-height: auto; padding: 18px; }
+  .share-card-fallback strong { font-size: 4.8rem; }
+  .share-card-footer strong { font-size: 1.28rem; }
+}
+
+</style>
+  </head>
+  <body>
+    <main class="site-shell">
+      <section class="hero hero-solo">
+        <div class="hero-copy">
+          <p class="eyebrow">DOGS 狗狗人格测试 · 2026最新版</p>
+          <h1>
+            <span class="title-line">测出你家狗狗</span>
+            <span class="title-line">的隐藏人格</span>
+          </h1>
+          <p class="hero-text">
+            <span class="hero-text-line">24 道真实养狗场景题，从驱动力、探索度、守护度和社交度四个维度，解读狗狗心理特征，了解它的性格偏好。</span>
+            <span class="hero-text-line">陪伴一生的家人，它懂你，你更要懂它。</span>
+          </p>
+          <div class="hero-actions">
+            <a href="#quiz" class="primary-link">开始测试</a>
+            <a href="#system" class="secondary-link">查看维度</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="system" class="system-section">
+        <div class="section-heading">
+          <p class="eyebrow">不是玄学，是行为观察</p>
+          <h2>4 个维度，组合出 16 种狗狗人格</h2>
+        </div>
+        <div id="axis-grid" class="axis-grid"></div>
+      </section>
+
+      <section id="quiz" class="quiz-section">
+        <div class="quiz-panel">
+          <div class="section-heading">
+            <p class="eyebrow">开始前先写下它的名字</p>
+            <h2>为它生成专属报告</h2>
+          </div>
+          <div class="profile-row">
+            <label>
+              狗狗昵称
+              <input id="dog-name" value="我家狗狗" maxlength="16" />
+            </label>
+            <label>
+              年龄阶段
+              <select id="dog-age">
+                <option>幼犬</option>
+                <option selected>成年犬</option>
+                <option>老年犬</option>
+                <option>不确定</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="progress-wrap" aria-label="答题进度">
+            <div>
+              <span id="progress-label">已完成 0/24</span>
+              <strong id="progress-percent">0%</strong>
+            </div>
+            <div class="progress-track"><i id="progress-bar"></i></div>
+          </div>
+
+          <div id="question-list" class="question-list"></div>
+        </div>
+      </section>
+
+      <section id="result-root" class="waiting-card">
+        <h2>答完 24 题后，这里会生成完整报告和可晒卡片</h2>
+      </section>
+    </main>
+
+    <script>
+const dogAxes = {
+  drive: {
+    label: "Drive 驱动力",
+    high: "D",
+    low: "C",
+    highName: "动力型",
+    lowName: "松弛型",
+  },
+  openness: {
+    label: "Openness 探索度",
+    high: "O",
+    low: "R",
+    highName: "探索型",
+    lowName: "谨慎型",
+  },
+  guarding: {
+    label: "Guarding 守护度",
+    high: "G",
+    low: "E",
+    highName: "守护型",
+    lowName: "随和型",
+  },
+  sociability: {
+    label: "Sociability 社交度",
+    high: "S",
+    low: "I",
+    highName: "社牛型",
+    lowName: "独立型",
+  },
+};
+
+const axisOrder = ["drive", "openness", "guarding", "sociability"];
+const optionTieWeights = { a: 1, b: 2, c: 3, d: 4 };
+const optionPositionValues = { a: 2, b: 1, c: -1, d: -2 };
+const calibrationDeadzone = 0.25;
+const calibrationScale = 1.5;
+const maxCalibrationBias = 0.65;
+
+function scoreAxis(axis, value) {
+  return {
+    drive: 0,
+    openness: 0,
+    guarding: 0,
+    sociability: 0,
+    [axis]: value,
+  };
+}
+
+const high = (axis) => scoreAxis(axis, 2);
+const softHigh = (axis) => scoreAxis(axis, 1);
+const softLow = (axis) => scoreAxis(axis, -1);
+const low = (axis) => scoreAxis(axis, -2);
+
+const dogQuestions = [
+  {
+    id: "q1",
+    axis: "drive",
+    text: "出门遛弯时，你家狗狗通常是？",
+    options: [
+      { id: "a", text: "一出门就兴奋冲在前面", scores: high("drive") },
+      { id: "b", text: "节奏轻快，愿意往前走", scores: softHigh("drive") },
+      { id: "c", text: "更喜欢慢慢走，不太主动加速", scores: softLow("drive") },
+      { id: "d", text: "需要你多带一带，热身后才进入状态", scores: low("drive") },
+    ],
+  },
+  {
+    id: "q2",
+    axis: "guarding",
+    text: "家里来了陌生人，它第一反应更像？",
+    options: [
+      { id: "a", text: "主动上前闻闻，想认识一下", scores: low("guarding") },
+      { id: "b", text: "先看一眼气氛，再决定要不要靠近", scores: softLow("guarding") },
+      { id: "c", text: "会保持距离，留意对方动向", scores: softHigh("guarding") },
+      { id: "d", text: "会挡在家人附近，警觉很明显", scores: high("guarding") },
+    ],
+  },
+  {
+    id: "q3",
+    axis: "openness",
+    text: "它对新玩具的反应通常是？",
+    options: [
+      { id: "a", text: "立刻扑上去研究和开玩", scores: high("openness") },
+      { id: "b", text: "先闻一闻，再慢慢尝试", scores: softHigh("openness") },
+      { id: "c", text: "兴趣一般，更偏爱熟悉的玩具", scores: softLow("openness") },
+      { id: "d", text: "会绕开或明显犹豫", scores: low("openness") },
+    ],
+  },
+  {
+    id: "q4",
+    axis: "drive",
+    text: "平时在家，它的精力状态更像？",
+    options: [
+      { id: "a", text: "随时都能开机，玩很久都不嫌累", scores: high("drive") },
+      { id: "b", text: "有兴奋时段，但也会自己收住", scores: softHigh("drive") },
+      { id: "c", text: "大部分时间比较安静，喜欢慢节奏", scores: softLow("drive") },
+      { id: "d", text: "更爱趴着休息，通常不主动折腾", scores: low("drive") },
+    ],
+  },
+  {
+    id: "q5",
+    axis: "guarding",
+    text: "听到门外有动静时，它通常会？",
+    options: [
+      { id: "a", text: "基本不当回事，照常待着", scores: low("guarding") },
+      { id: "b", text: "会抬头听一下，很快就放松", scores: softLow("guarding") },
+      { id: "c", text: "会起身确认一下发生了什么", scores: softHigh("guarding") },
+      { id: "d", text: "会立刻到门口盯着或提醒你", scores: high("guarding") },
+    ],
+  },
+  {
+    id: "q6",
+    axis: "sociability",
+    text: "它和其他狗狗相处时更像？",
+    options: [
+      { id: "a", text: "主动靠近，想一起玩", scores: high("sociability") },
+      { id: "b", text: "看对方状态，合适才互动", scores: softHigh("sociability") },
+      { id: "c", text: "不太主动，更喜欢自己待着", scores: softLow("sociability") },
+      { id: "d", text: "明显不想社交，会保持距离", scores: low("sociability") },
+    ],
+  },
+  {
+    id: "q7",
+    axis: "sociability",
+    text: "当你回家时，它通常会？",
+    options: [
+      { id: "a", text: "兴奋迎接，像开庆祝会", scores: high("sociability") },
+      { id: "b", text: "开心靠近，但很快平稳下来", scores: softHigh("sociability") },
+      { id: "c", text: "看一眼确认你回来了就好", scores: softLow("sociability") },
+      { id: "d", text: "更习惯你先靠近它", scores: low("sociability") },
+    ],
+  },
+  {
+    id: "q8",
+    axis: "openness",
+    text: "遇到没去过的地方，它更像？",
+    options: [
+      { id: "a", text: "越新鲜越兴奋，到处探索", scores: high("openness") },
+      { id: "b", text: "会好奇，但会边看你边前进", scores: softHigh("openness") },
+      { id: "c", text: "会慢慢观察，步子明显放缓", scores: softLow("openness") },
+      { id: "d", text: "会先找安全点，不想立刻深入", scores: low("openness") },
+    ],
+  },
+  {
+    id: "q9",
+    axis: "sociability",
+    text: "它对主人的陪伴方式更像？",
+    options: [
+      { id: "a", text: "喜欢贴着你，主打一个黏", scores: high("sociability") },
+      { id: "b", text: "喜欢和你在同一空间，也愿意跟着走", scores: softHigh("sociability") },
+      { id: "c", text: "有自己的空间，不需要一直互动", scores: softLow("sociability") },
+      { id: "d", text: "比较独处型，想参与时才会靠过来", scores: low("sociability") },
+    ],
+  },
+  {
+    id: "q10",
+    axis: "guarding",
+    text: "家里有声响时，它会不会“巡逻”？",
+    options: [
+      { id: "a", text: "很少，主打随和", scores: low("guarding") },
+      { id: "b", text: "偶尔看看，确认没事就算了", scores: softLow("guarding") },
+      { id: "c", text: "经常会去查看一下", scores: softHigh("guarding") },
+      { id: "d", text: "非常认真，像在轮班值守", scores: high("guarding") },
+    ],
+  },
+  {
+    id: "q11",
+    axis: "drive",
+    text: "它玩起来的风格更像？",
+    options: [
+      { id: "a", text: "追逐、拔河、冲刺样样来", scores: high("drive") },
+      { id: "b", text: "会玩得很投入，但知道停一停", scores: softHigh("drive") },
+      { id: "c", text: "更喜欢轻松互动，不太爆冲", scores: softLow("drive") },
+      { id: "d", text: "通常短时参与，很快就想歇会儿", scores: low("drive") },
+    ],
+  },
+  {
+    id: "q12",
+    axis: "sociability",
+    text: "面对陌生人摸它，它通常？",
+    options: [
+      { id: "a", text: "很欢迎，甚至主动凑过去", scores: high("sociability") },
+      { id: "b", text: "熟悉一下就能接受", scores: softHigh("sociability") },
+      { id: "c", text: "不太喜欢，容易躲开", scores: softLow("sociability") },
+      { id: "d", text: "会明确拉开距离，不想被碰", scores: low("sociability") },
+    ],
+  },
+  {
+    id: "q13",
+    axis: "drive",
+    text: "它独自在家时更可能？",
+    options: [
+      { id: "a", text: "自己找玩具、找事情做", scores: high("drive") },
+      { id: "b", text: "会等你回来，但还能自我打发", scores: softHigh("drive") },
+      { id: "c", text: "大多时间安静休息", scores: softLow("drive") },
+      { id: "d", text: "基本不爱动，主打休眠模式", scores: low("drive") },
+    ],
+  },
+  {
+    id: "q14",
+    axis: "openness",
+    text: "它看到小动物、鸟、猫或移动的新东西时？",
+    options: [
+      { id: "a", text: "会被立刻吸引，想追上去看看", scores: high("openness") },
+      { id: "b", text: "会注意到，也想靠近确认", scores: softHigh("openness") },
+      { id: "c", text: "兴趣一般，看看就算了", scores: softLow("openness") },
+      { id: "d", text: "会更谨慎，先判断安不安全", scores: low("openness") },
+    ],
+  },
+  {
+    id: "q15",
+    axis: "drive",
+    text: "它最喜欢哪种陪伴方式？",
+    options: [
+      { id: "a", text: "高强度玩耍、跑跳、反复互动", scores: high("drive") },
+      { id: "b", text: "散步加小游戏，节奏刚刚好", scores: softHigh("drive") },
+      { id: "c", text: "安静陪着也很满足", scores: softLow("drive") },
+      { id: "d", text: "只要你在旁边，不太需要活动", scores: low("drive") },
+    ],
+  },
+  {
+    id: "q16",
+    axis: "openness",
+    text: "被带去宠物店、医院或陌生环境时，它更像？",
+    options: [
+      { id: "a", text: "好奇大于紧张，四处看看", scores: high("openness") },
+      { id: "b", text: "有点紧张，但能边看边适应", scores: softHigh("openness") },
+      { id: "c", text: "明显慢下来，需要时间观察", scores: softLow("openness") },
+      { id: "d", text: "会优先找安全感，不想轻易尝试", scores: low("openness") },
+    ],
+  },
+  {
+    id: "q17",
+    axis: "guarding",
+    text: "它对“自己人”和“外人”的区别明显吗？",
+    options: [
+      { id: "a", text: "不太分，谁来都能玩", scores: low("guarding") },
+      { id: "b", text: "更亲近熟人，但对外人也还好", scores: softLow("guarding") },
+      { id: "c", text: "分得清，会观察外人的动作", scores: softHigh("guarding") },
+      { id: "d", text: "分得很清，会明显护着家里人", scores: high("guarding") },
+    ],
+  },
+  {
+    id: "q18",
+    axis: "guarding",
+    text: "它平时更像哪一类？",
+    options: [
+      { id: "a", text: "开朗随和的小伙伴", scores: low("guarding") },
+      { id: "b", text: "稳稳陪伴型，不爱多管闲事", scores: softLow("guarding") },
+      { id: "c", text: "负责看场子的观察员", scores: softHigh("guarding") },
+      { id: "d", text: "像自带雷达的守家小门神", scores: high("guarding") },
+    ],
+  },
+  {
+    id: "q19",
+    axis: "sociability",
+    text: "当主人情绪低落时，它更可能？",
+    options: [
+      { id: "a", text: "主动贴过来安慰你", scores: high("sociability") },
+      { id: "b", text: "会安静陪在旁边", scores: softHigh("sociability") },
+      { id: "c", text: "不一定有明显反应", scores: softLow("sociability") },
+      { id: "d", text: "多半保持自己的节奏", scores: low("sociability") },
+    ],
+  },
+  {
+    id: "q20",
+    axis: "openness",
+    text: "面对新规则或新训练，它通常？",
+    options: [
+      { id: "a", text: "愿意尝试，学得很快", scores: high("openness") },
+      { id: "b", text: "需要熟悉一下，但能接受", scores: softHigh("openness") },
+      { id: "c", text: "更喜欢老套路，不想变太多", scores: softLow("openness") },
+      { id: "d", text: "对新要求很谨慎，最好慢慢来", scores: low("openness") },
+    ],
+  },
+  {
+    id: "q21",
+    axis: "drive",
+    text: "你最常吐槽它哪一点？",
+    options: [
+      { id: "a", text: "精力太旺，像个小马达", scores: high("drive") },
+      { id: "b", text: "一玩就上头，但还能收住", scores: softHigh("drive") },
+      { id: "c", text: "太佛系，催半天才进入状态", scores: softLow("drive") },
+      { id: "d", text: "能躺就躺，主打一个省电", scores: low("drive") },
+    ],
+  },
+  {
+    id: "q22",
+    axis: "guarding",
+    text: "你觉得它最可爱的地方更像？",
+    options: [
+      { id: "a", text: "心大，很多事都不往心里去", scores: low("guarding") },
+      { id: "b", text: "脾气稳，基本不挑事", scores: softLow("guarding") },
+      { id: "c", text: "很在意家人和生活范围", scores: softHigh("guarding") },
+      { id: "d", text: "对家和你特别上心，保护欲很强", scores: high("guarding") },
+    ],
+  },
+  {
+    id: "q23",
+    axis: "openness",
+    text: "如果用一个场景形容它，它更像？",
+    options: [
+      { id: "a", text: "草地上到处探险的小队长", scores: high("openness") },
+      { id: "b", text: "跟着你边走边闻的小旅伴", scores: softHigh("openness") },
+      { id: "c", text: "在熟悉角落慢慢观察的思考家", scores: softLow("openness") },
+      { id: "d", text: "到新地方先找安全点再说", scores: low("openness") },
+    ],
+  },
+  {
+    id: "q24",
+    axis: "sociability",
+    text: "如果被带到热闹的宠物聚会，它更像？",
+    options: [
+      { id: "a", text: "主动找人找狗，到处交朋友", scores: high("sociability") },
+      { id: "b", text: "慢慢热身后，也能融入进去", scores: softHigh("sociability") },
+      { id: "c", text: "更想待在你旁边，不太主动社交", scores: softLow("sociability") },
+      { id: "d", text: "会更喜欢边缘位置，尽量少被打扰", scores: low("sociability") },
+    ],
+  },
+];
+
+const baseDogResults = {
+  DOGS: {
+    name: "热血护主社牛犬",
+    tagline: "像一颗会巡逻的小太阳，热情、勇敢，也很在意你的回应。",
+    keywords: ["精力旺盛", "主动探索", "护主", "亲人"],
+    summary: "它不是单纯调皮，而是行动欲、好奇心和互动欲都很高。只要环境合适，它很容易成为全场最有存在感的那只狗。",
+    advice: "每天安排稳定的运动和互动任务，让它有地方释放能量，也有机会和你建立更强的默契。",
+    misunderstanding: "容易被误会成太闹，其实很多时候只是精力和参与感太强。",
+  },
+  DOGI: {
+    name: "热血护主独行侠",
+    tagline: "有劲头，也有主见，亲近你但不喜欢谁都来打扰。",
+    keywords: ["行动快", "有主见", "护主", "边界感"],
+    summary: "它既有活力，也有自己的节奏。它会认真跟随你，但不会把所有社交都当成必须参与的事。",
+    advice: "适合做规则清晰的小训练和定向游戏，既消耗体力，也能让它在边界感里保持安全感。",
+    misunderstanding: "不是高冷，而是更在意熟悉关系里的信任质量。",
+  },
+  DOES: {
+    name: "快乐撒欢外交官",
+    tagline: "看见世界就想打招呼，快乐写在尾巴和步子里。",
+    keywords: ["开朗", "好奇", "随和", "爱互动"],
+    summary: "它对新鲜事物接受度高，也愿意和人或狗建立连接，是那种很适合外出陪伴、也容易带动气氛的类型。",
+    advice: "重点练好礼貌社交和唤回，让它在热情不减的同时，也更会掌握分寸。",
+    misunderstanding: "不是没规矩，只是太容易兴奋，需要更清楚的互动边界。",
+  },
+  DOEI: {
+    name: "自由散步艺术家",
+    tagline: "爱探索，也爱自己的节奏，闻世界比赶世界更重要。",
+    keywords: ["好奇", "独立", "松弛", "有节奏"],
+    summary: "它喜欢新鲜感，但不一定爱热闹。对它来说，慢慢闻、慢慢看，也是很高级的快乐。",
+    advice: "散步时多给一点嗅闻时间，不用强行把每一次外出都变成任务。",
+    misunderstanding: "不是不黏你，而是更喜欢用自己的方式享受陪伴。",
+  },
+  DRGS: {
+    name: "敏感护主小保镖",
+    tagline: "世界有点吵，但你是它最想守好的那个人。",
+    keywords: ["敏感", "警觉", "护主", "黏人"],
+    summary: "它对环境变化很敏锐，容易紧张，也容易把主人当成自己的安全中心。它的贴近，很多时候都带着保护意味。",
+    advice: "减少突兀刺激，建立可预期的日常节奏，用稳定陪伴帮它一点点放松下来。",
+    misunderstanding: "不是故意爱叫，而是它真的比别的狗更早察觉到风吹草动。",
+  },
+  DRGI: {
+    name: "高冷警戒观察员",
+    tagline: "先观察，先确认，再决定要不要靠近。",
+    keywords: ["谨慎", "警觉", "独立", "观察型"],
+    summary: "它不会轻易把自己交给陌生环境，也不会随便跟谁热络。它的安全系统启动得早，信任建立得慢。",
+    advice: "别催它快点熟，把观察时间也算进适应过程里，它会更稳更舒服。",
+    misunderstanding: "不是脾气坏，而是比大多数狗更需要确认感。",
+  },
+  DRES: {
+    name: "胆大随和开心果",
+    tagline: "心大、能玩、适应快，热闹场面里也能自来熟。",
+    keywords: ["活泼", "随和", "亲人", "适应快"],
+    summary: "它能量足，但没有太多防备心，愿意把很多新鲜场合都当成有趣体验，是很好带气氛的那类狗。",
+    advice: "多做基础服从和节奏管理，帮它把大胆和稳定结合起来。",
+    misunderstanding: "不是没心没肺，而是安全感本来就比较充足。",
+  },
+  DREI: {
+    name: "独立冒险理想家",
+    tagline: "爱自由、爱路线、爱闻世界，也爱自己决定怎么靠近。",
+    keywords: ["冒险", "独立", "行动力", "慢热"],
+    summary: "它喜欢探索，也很享受自己做判断。相比社交本身，它更在意外界到底值不值得自己花时间研究。",
+    advice: "用寻宝、长线散步和嗅闻垫满足它的探索欲，再配合稳定唤回训练。",
+    misunderstanding: "不是不听话，而是太容易被有意思的世界吸引。",
+  },
+  COGS: {
+    name: "佛系护主粘人精",
+    tagline: "不一定闹腾，但就是喜欢守在你附近。",
+    keywords: ["温和", "护主", "黏人", "稳定"],
+    summary: "它的整体节奏偏稳，能量不算炸裂，但对主人有很强的连接感，属于安静而深情的陪伴型。",
+    advice: "用固定陪伴时间和轻柔互动去回应它，它会在稳定关系里越来越安心。",
+    misunderstanding: "安静不代表需求少，它只是表达得更温柔。",
+  },
+  COGI: {
+    name: "安静护主老干部",
+    tagline: "稳、慢、讲秩序，表面不动声色，心里其实很有数。",
+    keywords: ["沉稳", "护家", "独立", "规律感"],
+    summary: "它不爱夸张表现，但会默默留意家里和主人的状态。它的守护更像一种稳定存在，而不是高调出手。",
+    advice: "保持生活规律，训练时用清晰而不过度刺激的方式，它会很买账。",
+    misunderstanding: "不是无聊，是它真的更喜欢稳稳当当。",
+  },
+  COES: {
+    name: "温柔社交小太阳",
+    tagline: "柔软、亲人、好相处，是家里的低音量暖炉。",
+    keywords: ["温和", "亲人", "随和", "陪伴感"],
+    summary: "它不一定精力爆棚，但很愿意靠近人，也容易让人觉得舒服，是很容易养出情感连结的一型。",
+    advice: "用散步、梳毛、轻训练建立日常仪式感，它会在被回应里越来越发光。",
+    misunderstanding: "不是没个性，而是脾气真的比较软。",
+  },
+  COEI: {
+    name: "松弛感陪伴犬",
+    tagline: "不争不抢，但总在生活的柔软角落里陪着你。",
+    keywords: ["松弛", "独立", "随和", "稳定"],
+    summary: "它是低消耗、高陪伴感的类型，不需要特别强的刺激，也能安稳地和你待在一起。",
+    advice: "尊重它慢节奏的生活方式，稳定的作息和轻量互动最能让它舒服。",
+    misunderstanding: "不是不热情，只是表达爱的方法比较安静。",
+  },
+  CRGS: {
+    name: "敏感守家小门神",
+    tagline: "小小身体里，装着一套认真负责的安保系统。",
+    keywords: ["敏感", "守家", "亲人", "安全感"],
+    summary: "它容易被声音和变化触发，但本质上是很在意家和主人的安全。它的警惕，背后常常是责任感。",
+    advice: "帮它区分普通动静和真正风险，用奖励建立‘听到也能放松’的经验。",
+    misunderstanding: "不是故意吵，而是它对环境的雷达开得太早。",
+  },
+  CRGI: {
+    name: "高冷边界守卫者",
+    tagline: "慢热、谨慎、有原则，熟了以后才把心门开一条缝。",
+    keywords: ["谨慎", "独立", "守护", "边界感"],
+    summary: "它对陌生人和陌生环境保留态度，需要足够时间确认安全。信任建立得慢，但一旦建立就很扎实。",
+    advice: "不要强行社交或突然抱摸，让它自己选择靠近，关系反而会更稳。",
+    misunderstanding: "不是难搞，是它的边界感非常清晰。",
+  },
+  CRES: {
+    name: "慢热亲人小棉袄",
+    tagline: "外面慢半拍，心里软乎乎，熟了以后很会贴近你。",
+    keywords: ["慢热", "亲人", "谨慎", "温柔"],
+    summary: "它面对新事物会先观察，但一旦确认安全，就会表现出稳定又温柔的亲近感。",
+    advice: "给它一点适应时间，不着急催它勇敢，慢慢熟起来反而更牢靠。",
+    misunderstanding: "不是胆小没出息，只是它需要自己的节奏。",
+  },
+  CREI: {
+    name: "佛系独处哲学家",
+    tagline: "安静、独立、慢节奏，像一只会思考人生的小狗。",
+    keywords: ["佛系", "独立", "谨慎", "低调"],
+    summary: "它更喜欢熟悉的人、熟悉的空间和可控节奏。安静独处对它来说不是孤单，而是一种舒服。",
+    advice: "给它固定休息角落，减少没必要的打扰，互动短一点、轻一点、稳定一点会更好。",
+    misunderstanding: "不是不爱你，只是不需要一直证明它爱你。",
+  },
+};
+
+const dogRichContent = {
+  DOGS: {
+    identityIntro: "它属于那种一出场就很有存在感的狗狗，热情不是表演型热闹，而是真的很想参与进你的生活和节奏。",
+    outerBehavior: "出门时脚步轻快，看到人、狗或新鲜动静都愿意先冲到前面看看；你回家时它也常常第一时间迎上来，玩起来很容易进入状态。",
+    innerInsight: "这类狗狗往往不是单纯闲不住，而是驱动力、参与感和连接欲都比较高。它喜欢和你一起发生点什么，也会把“守着你、跟着你、回应你”当成很重要的事。",
+    getAlongTips: [
+      "每天给它留出稳定释放精力的时间，别让旺盛体力憋在家里。",
+      "热情可以鼓励，但也要练好停、等、回来的节奏感。",
+      "多安排你们一起完成的小任务，它会很吃“并肩作战”这一套。",
+    ],
+    misunderstandings: [
+      "不是故意闹腾，而是参与感太强。",
+      "不是没分寸，而是开心时容易把热情放在前面。",
+    ],
+    companionshipAdvice: [
+      "它需要的不只是运动量，也需要被你认真回应。",
+      "当你愿意陪它一起消耗、一起互动，它会更信任这段关系。",
+      "把热情慢慢引导成默契，它会成为很会陪人的小太阳。",
+    ],
+  },
+  DOGI: {
+    identityIntro: "它不是黏所有人的热情派，而是有劲头、有判断、也有自己边界的行动型狗狗。",
+    outerBehavior: "散步和玩耍时很有冲劲，遇到有意思的事会主动参与；但面对陌生人或无聊社交，它并不会都买账，更愿意把注意力留给熟悉的人和自己认同的事。",
+    innerInsight: "这类狗狗通常对自己要不要靠近、要不要配合有很明确的判断。它不是缺少感情，而是更在意关系质量和自主感，不喜欢被随便打断节奏。",
+    getAlongTips: [
+      "给它明确规则，它反而更安心，不用靠反复提醒去压。",
+      "训练时多做定向任务和目标感强的互动，它会更投入。",
+      "尊重它对陌生社交的选择，不必强求它谁都喜欢。",
+    ],
+    misunderstandings: [
+      "不是高冷装酷，而是更在意信任质量。",
+      "不是不合群，而是没必要的热闹它不想参加。",
+    ],
+    companionshipAdvice: [
+      "和它相处，清晰比讨好更重要。",
+      "当你既给边界也给信任，它会把你放进自己认可的圈子里。",
+      "这种狗狗一旦认主，忠诚常常是很稳、很实在的那种。",
+    ],
+  },
+  DOES: {
+    identityIntro: "它像一只把“去认识一下”写在脸上的开心外交官，外向、明亮，也很容易把场子带热。",
+    outerBehavior: "看到新环境、新朋友、新玩具都愿意靠近尝试，散步时常常走得兴致勃勃，遇到人和狗也容易先释放友好信号。",
+    innerInsight: "它的底层逻辑更像是“世界挺有意思，先接触看看”。这种狗狗安全感通常不低，所以更愿意把好奇和连接放在前面，而不是先退后防备。",
+    getAlongTips: [
+      "帮它练好礼貌社交，让热情和分寸同时在线。",
+      "唤回和等待要反复巩固，避免它一开心就忘了你。",
+      "多给它合法探索机会，它会比一味约束更稳定。",
+    ],
+    misunderstandings: [
+      "不是谁都爱就不认主，而是它表达友好本来就很快。",
+      "不是没规矩，而是兴奋值高的时候更需要明确边界。",
+    ],
+    companionshipAdvice: [
+      "别只压它的热情，教会它怎么热情更重要。",
+      "当它能在开心里保持一点稳定，整只狗会更有魅力。",
+      "它很适合做生活里的气氛担当，也很需要被你温柔收回来。",
+    ],
+  },
+  DOEI: {
+    identityIntro: "它是会自己散步、自己闻世界、自己消化快乐的那种小艺术家，松弛里带着点独立感。",
+    outerBehavior: "外出时对新鲜味道和路线有兴趣，但不一定冲着热闹去；它更常见的状态，是边走边闻、边看边想，按自己的节奏感受周围。",
+    innerInsight: "它并不是对外界冷淡，而是更喜欢慢慢体验，而不是被环境推着走。比起强刺激和强社交，它更看重舒服、留白和能自己做选择的空间。",
+    getAlongTips: [
+      "散步时多留一点嗅闻时间，不要每次都赶任务进度。",
+      "互动可以轻一点、柔一点，让它保持松弛感。",
+      "需要配合时提前给信号，比临时催促更有效。",
+    ],
+    misunderstandings: [
+      "不是不黏你，而是喜欢用自己的方式陪你。",
+      "不是没激情，而是它的快乐本来就更安静、更细水长流。",
+    ],
+    companionshipAdvice: [
+      "它适合被慢慢养，不适合被天天催着热烈。",
+      "你越尊重它的节奏，它越愿意把舒服的陪伴留给你。",
+      "这种松弛型小狗，常常会把生活过得很治愈。",
+    ],
+  },
+  DRGS: {
+    identityIntro: "它是一只敏感度很高的小保镖，外界稍微有点风吹草动，它都会第一时间注意到。",
+    outerBehavior: "听到门外声音会抬头、起身，遇到陌生人和新场景时也容易绷起来；但与此同时，它又很想贴着主人，把你当成自己最重要的安全坐标。",
+    innerInsight: "这类狗狗很多时候不是故意紧张，而是真的比别的狗更早接收到刺激。它的警觉和黏人，背后常常都连着同一件事：它很在意你，也很在意这片小世界安不安全。",
+    getAlongTips: [
+      "给它稳定、可预期的作息，敏感狗最吃这一套。",
+      "遇到刺激别急着硬压，先让它有一个能回来的安全反应。",
+      "多做低压环境下的脱敏练习，帮它一点点建立确认感。",
+    ],
+    misunderstandings: [
+      "不是故意爱叫，而是它真的更早听见、也更早在意。",
+      "不是玻璃心难伺候，而是它的感受器本来就开得很大。",
+    ],
+    companionshipAdvice: [
+      "对它来说，你的稳定比任何技巧都更有用。",
+      "当它开始知道“你会处理”，它就没那么需要自己顶上去。",
+      "被好好理解后的敏感狗，往往会变成很细腻也很忠诚的陪伴者。",
+    ],
+  },
+  DRGI: {
+    identityIntro: "它是慢热又有警戒系统的观察员型小狗，不急着靠近，但会把周围每个细节都先看在眼里。",
+    outerBehavior: "面对陌生人、新环境、新声音时，它常常先站住、先观察、先确认；不会轻易热络，也不喜欢被突然靠近，更多时候像在默默评估局势。",
+    innerInsight: "它很重视边界和安全，不是因为不懂亲近，而是需要先确认这份亲近值不值得交付。它的慢，不是拖拉，而是保护自己和熟悉关系的一种方式。",
+    getAlongTips: [
+      "别催它快点熟，把观察时间也算进适应过程里。",
+      "让陌生接触变得可预期，它会比被突然打断更稳。",
+      "给它选择权，它通常会在更安心时主动靠近。",
+    ],
+    misunderstandings: [
+      "不是冷酷无情，而是确认感比热闹更重要。",
+      "不是脾气差，而是比大多数狗更重视边界。",
+    ],
+    companionshipAdvice: [
+      "你越不逼它，它越容易把你放进信任名单。",
+      "这种狗狗一旦认定你，连接通常很深，但不会表现得很吵。",
+      "耐心一点，你会看到它把谨慎慢慢变成踏实的依赖。",
+    ],
+  },
+  DRES: {
+    identityIntro: "它是那种胆子不小、心也挺大的开心果，很多场合都能很快进入状态。",
+    outerBehavior: "去新地方不太怯场，见到新东西愿意试，遇到人和狗也相对放松，热闹起来很容易成为那个自带氛围感的角色。",
+    innerInsight: "这类狗狗通常天生安全感不低，所以会把“先玩起来、先开心”放在前面。它不是不谨慎，而是身体和情绪都更容易朝开放的一侧走。",
+    getAlongTips: [
+      "基础服从一定要练，不然开心过头时容易收不回来。",
+      "多用规则去兜住它的大胆，而不是只在出问题后制止。",
+      "给它探索和社交机会，但别忘了练稳定切换。",
+    ],
+    misunderstandings: [
+      "不是没心没肺，而是它本来就更容易放松。",
+      "不是故意抢戏，而是存在感真的比较强。",
+    ],
+    companionshipAdvice: [
+      "它很适合带来快乐，但也需要你帮它学会稳住快乐。",
+      "当大胆和边界一起长出来，它会非常讨人喜欢。",
+      "别总想着压住它的亮度，学会引导，效果会更好。",
+    ],
+  },
+  DREI: {
+    identityIntro: "它像个喜欢自己做决定的冒险理想家，既爱探索，也很看重自己的独立感和路线感。",
+    outerBehavior: "出门时容易被新鲜路线、味道、动静吸引，喜欢边走边研究；但它又不一定爱强社交，更像是在和世界单独发生关系。",
+    innerInsight: "这类狗狗的核心不只是胆子大，而是对外界始终有主动探索的欲望。比起被人带着热闹，它更在乎“我自己想不想去看一眼”。",
+    getAlongTips: [
+      "用寻宝、长线散步、嗅闻垫这类方式满足它的探索欲。",
+      "唤回一定要单独强化，不然新鲜世界会轻松赢过你。",
+      "别把它的独立都解读成叛逆，它很多时候只是在认真探索。",
+    ],
+    misunderstandings: [
+      "不是不听话，而是容易被世界里的新鲜感拉走。",
+      "不是不爱主人，而是独立感在它这里占比更高。",
+    ],
+    companionshipAdvice: [
+      "你和它最好的关系，不是时时拴紧，而是能叫得回来。",
+      "当它知道探索完还可以放心回到你这里，关系会更稳。",
+      "给独立狗一点空间，它反而更愿意把靠近留给你。",
+    ],
+  },
+  COGS: {
+    identityIntro: "它像一个安安静静守在你身边的小陪护，表面不闹腾，实际黏度和守护感都不低。",
+    outerBehavior: "平时节奏偏稳，不太会主动炸场，但经常愿意待在你附近；你走到哪，它可能不会高调跟随，却会默默确认你的动静。",
+    innerInsight: "这类狗狗不靠热闹刷存在感，它的连接方式更像持续在线的陪伴。它对熟悉关系投入很深，很多时候看起来松弛，其实很在意你在不在、稳不稳。",
+    getAlongTips: [
+      "固定陪伴时间对它很重要，它会把这种稳定感记在心里。",
+      "互动不用太炸，轻柔但持续的回应反而更打动它。",
+      "当它默默跟着你时，也别忘了给它一点正反馈。",
+    ],
+    misunderstandings: [
+      "不是需求少，而是表达方式比较安静。",
+      "不是没脾气，而是更愿意把情绪收在稳定关系里。",
+    ],
+    companionshipAdvice: [
+      "它是那种越养越有后劲的陪伴型小狗。",
+      "你对它越稳定，它越会把自己柔软的那一面交给你。",
+      "别因为它安静就忽略它，它其实一直都在认真陪你。",
+    ],
+  },
+  COGI: {
+    identityIntro: "它像个安静、有规矩、很有分寸的老干部，表面淡定，心里其实一直很有数。",
+    outerBehavior: "日常不爱夸张反应，面对生活里的变化通常先稳稳看着；守护家和主人的方式也不张扬，更多是默默巡查、默默确认。",
+    innerInsight: "这类狗狗的核心不是高冷，而是秩序感和稳定感特别强。它会用自己的节奏管理环境，也希望环境不要总是突然打乱它。",
+    getAlongTips: [
+      "和它相处，规律、清晰、稳定会比花活更有效。",
+      "训练时不要太吵太急，它更吃有步骤的沟通方式。",
+      "让它知道家里的规则长期一致，它会非常省心。",
+    ],
+    misunderstandings: [
+      "不是无聊，而是它本来就偏爱稳稳当当。",
+      "不是反应慢，而是很多事它会先判断再动作。",
+    ],
+    companionshipAdvice: [
+      "这种狗狗养久了，会让人很有踏实感。",
+      "它不一定天天热情外放，但经常是最稳的那个存在。",
+      "你给它秩序，它会还你一份安稳的陪伴。",
+    ],
+  },
+  COES: {
+    identityIntro: "它像家里的低音量小太阳，温柔、亲人、愿意靠近，很容易让人觉得舒服。",
+    outerBehavior: "它通常不需要太久就能和熟悉的人贴近，在家愿意陪着、跟着，也常常会用轻柔的方式参与互动，而不是高声量刷存在感。",
+    innerInsight: "这种狗狗的社交动力来自连接感，而不是刺激感。它愿意靠近、愿意陪伴，是因为关系本身就能给它安全和满足。",
+    getAlongTips: [
+      "多安排散步、梳毛、轻训练这种温和互动，它会很享受。",
+      "回应它主动靠近的小动作，会让它更有被看见的感觉。",
+      "别把它的温柔当成理所当然，它也需要被珍惜。",
+    ],
+    misunderstandings: [
+      "不是没个性，而是它的个性刚好比较柔软。",
+      "不是谁都行，而是它确实更容易表达善意。",
+    ],
+    companionshipAdvice: [
+      "它很适合做日常生活里的情绪缓冲器。",
+      "越被温柔对待，它越会把舒服的陪伴感放大。",
+      "和这种狗狗过日子，常常会有一种被安静治愈的感觉。",
+    ],
+  },
+  COEI: {
+    identityIntro: "它是那种不争不抢、安静舒服、能把陪伴过成日常底色的松弛型小狗。",
+    outerBehavior: "平时不太主动抢镜，更多是安静待在熟悉空间里，偶尔靠近你一下、看看你一下，就已经算很自然的表达了。",
+    innerInsight: "这类狗狗并不是没感情，而是对刺激和社交的需求都没那么高。它更在乎环境够不够稳、关系够不够舒服，而不是时时都要高互动。",
+    getAlongTips: [
+      "别用太热闹的方式逼它活跃，轻量互动更适合它。",
+      "给它稳定作息和固定角落，它会明显更松弛。",
+      "它愿意靠近时就接住，不愿意时也别过度打扰。",
+    ],
+    misunderstandings: [
+      "不是不热情，而是表达爱的方法比较安静。",
+      "不是摸鱼偷懒，而是它天生就偏慢节奏生活。",
+    ],
+    companionshipAdvice: [
+      "它不是那种制造高潮的狗，却很适合陪你过日子。",
+      "当你也学会慢一点，你会更容易感受到它的温柔。",
+      "这种安静型陪伴，往往最适合长长久久地相处。",
+    ],
+  },
+  CRGS: {
+    identityIntro: "它像个认真值守的小门神，虽然体型和气场未必都大，但守家这件事它是真的放在心上。",
+    outerBehavior: "对门外动静、陌生脚步、家里变化都比较敏锐，常常会主动确认；但面对家人时，它又会显得很亲、很贴近，像把你纳入了重点守护范围。",
+    innerInsight: "它的敏感并不只是胆小，而是责任感和警戒感同时在线。它会下意识把很多普通变化当成需要留意的事情，所以总像开着一套小小安保系统。",
+    getAlongTips: [
+      "帮它区分普通动静和真正风险，别让它一直处在高警觉。",
+      "听到声音后给出固定回应，会让它更容易安心。",
+      "奖励它“看见了但能放松”的状态，比只在它叫时制止更有用。",
+    ],
+    misunderstandings: [
+      "不是故意吵，而是它的雷达开得太早。",
+      "不是爱多管闲事，而是它真的把守家当工作。",
+    ],
+    companionshipAdvice: [
+      "这种狗狗需要被理解，不然很容易长期处在紧绷里。",
+      "当它知道你能接手环境，它的责任感才会慢慢放下来。",
+      "被接住之后的小门神，常常会变成很可靠也很暖的陪伴者。",
+    ],
+  },
+  CRGI: {
+    identityIntro: "它像一个边界感很清楚的慢热守卫者，不轻易交心，但一旦认定就会守得很稳。",
+    outerBehavior: "面对陌生人和新场景时反应克制，常常先观察再决定；不爱无意义社交，也不喜欢被随便碰或突然打断自己的安全距离。",
+    innerInsight: "这类狗狗最在意的是可控感。它不是排斥关系，而是需要先确认自己能不能放心地把空间和注意力交出去，所以熟得慢、信得也慢。",
+    getAlongTips: [
+      "不要强行社交，让它自己选什么时候靠近谁。",
+      "用稳定、重复、可预期的接触方式建立关系，会比热情攻势更有效。",
+      "面对它的退一步，先尊重，再慢慢引导。",
+    ],
+    misunderstandings: [
+      "不是难搞，而是边界感真的很清晰。",
+      "不是冷漠无情，而是信任门槛比别的狗高一点。",
+    ],
+    companionshipAdvice: [
+      "它不会最快热起来，但常常会在熟悉后给你很扎实的信任。",
+      "和它相处，耐心比技巧更重要。",
+      "当你不急着打开它，它反而会自己把门留给你。",
+    ],
+  },
+  CRES: {
+    identityIntro: "它像一件慢慢热起来的小棉袄，刚开始不一定最显眼，但熟了之后会很温柔地贴近你。",
+    outerBehavior: "面对新环境时会先停下来观察，社交速度偏慢，不太会立刻冲进热闹里；可一旦确认安全，它又会用很稳定、很柔和的方式表达亲近。",
+    innerInsight: "它的慢，不是拖沓，而是一种先确认再投入的关系逻辑。对它来说，安全感和熟悉度到位之后，温柔才会自然流出来。",
+    getAlongTips: [
+      "别催它一下子变勇敢，给它缓冲时间很重要。",
+      "每次新体验都留一点成功结束的空间，它会积累更多信心。",
+      "当它主动靠近时，及时回应会让熟悉感长得更快。",
+    ],
+    misunderstandings: [
+      "不是胆小没出息，而是需要自己的适应节奏。",
+      "不是不亲人，而是亲近来得比别人慢一点。",
+    ],
+    companionshipAdvice: [
+      "这种狗狗常常是越养越暖的类型。",
+      "慢一点靠近它，你会发现它给出的信任很细很真。",
+      "别急着要它马上热烈，它更擅长把温柔留到熟悉以后。",
+    ],
+  },
+  CREI: {
+    identityIntro: "它像个安静又有主见的小哲学家，独处不是冷淡，而是它最舒服的生活方式之一。",
+    outerBehavior: "平时更喜欢熟悉空间、熟悉节奏，不爱被过度打扰；外出时也偏向慢慢确认、慢慢参与，很多时候更享受安静待着而不是主动凑热闹。",
+    innerInsight: "这类狗狗最看重的是可控、平稳和低消耗。它不是不需要关系，而是希望关系不必时时证明、时时高强度运转，安静存在就已经很够了。",
+    getAlongTips: [
+      "给它固定角落和稳定作息，会比频繁刺激更有帮助。",
+      "互动保持轻一点、短一点，它更容易舒服地接住。",
+      "别总想把它改成外向型，尊重它的低调天性更重要。",
+    ],
+    misunderstandings: [
+      "不是不爱你，而是不需要一直高调证明爱你。",
+      "不是木讷没反应，而是很多感受它都放在安静里消化。",
+    ],
+    companionshipAdvice: [
+      "这种狗狗的爱，常常不喧闹，但很稳定。",
+      "当你允许它做自己，它会把最安心的一面留在你身边。",
+      "独处型小狗不一定最热烈，却很适合慢慢陪很久。",
+    ],
+  },
+};
+
+const dogResults = Object.fromEntries(
+  Object.entries(baseDogResults).map(([code, result]) => [
+    code,
+    {
+      code,
+      ...result,
+      ...dogRichContent[code],
+    },
+  ]),
+);
+
+function sumTieWeight(answers, questions) {
+  return questions.reduce((sum, question) => sum + (optionTieWeights[answers[question.id]] ?? 0), 0);
+}
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function getAxisOptionPolarity(axis, questions) {
+  const polarity = questions.reduce(
+    (sum, question) =>
+      sum +
+      question.options.reduce(
+        (optionSum, option) => optionSum + (optionPositionValues[option.id] ?? 0) * (option.scores[axis] ?? 0),
+        0,
+      ),
+    0,
+  );
+
+  return polarity >= 0 ? 1 : -1;
+}
+
+function getAnswerPositionBias(answers) {
+  const positionScore = dogQuestions.reduce(
+    (sum, question) => sum + (optionPositionValues[answers[question.id]] ?? 0),
+    0,
+  );
+  const averageBias = positionScore / dogQuestions.length;
+  const magnitude = Math.max(0, Math.abs(averageBias) - calibrationDeadzone) * calibrationScale;
+
+  return Math.sign(averageBias) * Math.min(maxCalibrationBias, magnitude);
+}
+
+function calculateCalibratedPercentage(score, threshold, maxScore) {
+  const minScore = -maxScore;
+
+  if (score >= threshold) {
+    const highRange = Math.max(1, maxScore - threshold);
+    return Math.round(50 + ((score - threshold) / highRange) * 50);
+  }
+
+  const lowRange = Math.max(1, threshold - minScore);
+  return Math.round(((score - minScore) / lowRange) * 50);
+}
+
+function determineAxisCode(axis, score, positiveCount, negativeCount, answers, questions, threshold) {
+  if (score > threshold) return dogAxes[axis].high;
+  if (score < threshold) return dogAxes[axis].low;
+  if (positiveCount > negativeCount) return dogAxes[axis].high;
+  if (negativeCount > positiveCount) return dogAxes[axis].low;
+  return sumTieWeight(answers, questions) % 2 === 0 ? dogAxes[axis].high : dogAxes[axis].low;
+}
+
+function calculateDogPersonality(answers) {
+  const scores = { drive: 0, openness: 0, guarding: 0, sociability: 0 };
+  const positiveCounts = { drive: 0, openness: 0, guarding: 0, sociability: 0 };
+  const negativeCounts = { drive: 0, openness: 0, guarding: 0, sociability: 0 };
+  const questionsByAxis = Object.fromEntries(axisOrder.map((axis) => [axis, []]));
+
+  for (const question of dogQuestions) {
+    questionsByAxis[question.axis].push(question);
+    const selected = question.options.find((option) => option.id === answers[question.id]);
+    if (!selected) continue;
+
+    for (const axis of axisOrder) {
+      const axisScore = selected.scores[axis] ?? 0;
+      scores[axis] += axisScore;
+      if (axisScore > 0) positiveCounts[axis] += 1;
+      if (axisScore < 0) negativeCounts[axis] += 1;
+    }
+  }
+
+  const answerPositionBias = getAnswerPositionBias(answers);
+  const calibrationThresholds = Object.fromEntries(
+    axisOrder.map((axis) => [
+      axis,
+      answerPositionBias * questionsByAxis[axis].length * getAxisOptionPolarity(axis, questionsByAxis[axis]),
+    ]),
+  );
+
+  const axisCodes = Object.fromEntries(
+    axisOrder.map((axis) => [
+      axis,
+      determineAxisCode(
+        axis,
+        scores[axis],
+        positiveCounts[axis],
+        negativeCounts[axis],
+        answers,
+        questionsByAxis[axis],
+        calibrationThresholds[axis],
+      ),
+    ]),
+  );
+
+  const maxScores = Object.fromEntries(
+    axisOrder.map((axis) => [
+      axis,
+      questionsByAxis[axis].reduce(
+        (sum, question) =>
+          sum + Math.max(...question.options.map((option) => Math.abs(option.scores[axis] ?? 0))),
+        0,
+      ),
+    ]),
+  );
+
+  const percentages = Object.fromEntries(
+    axisOrder.map((axis) => {
+      const maxScore = maxScores[axis] || 1;
+      const percentage = calculateCalibratedPercentage(scores[axis], calibrationThresholds[axis], maxScore);
+      return [axis, Math.max(0, Math.min(100, percentage))];
+    }),
+  );
+
+  const code = axisOrder.map((axis) => axisCodes[axis]).join("");
+  const result = dogResults[code] ?? dogResults.COEI;
+
+  return {
+    code,
+    axisCodes,
+    scores,
+    percentages,
+    ...result,
+    disclaimer: "这是行为观察型趣味测试，不替代兽医诊断或专业行为评估。",
+  };
+}
+
+
+
+
+const axisCopy = [
+  { key: "drive", title: "驱动力", left: "松弛", right: "动力", note: "看它的精力、行动欲和玩耍欲。" },
+  { key: "openness", title: "探索度", left: "谨慎", right: "探索", note: "看它面对新人、新环境、新玩具的反应。" },
+  { key: "guarding", title: "守护度", left: "随和", right: "守护", note: "看它对家、主人和环境声音的警觉程度。" },
+  { key: "sociability", title: "社交度", left: "独立", right: "社牛", note: "看它黏人、亲人和主动互动的程度。" },
+];
+
+const state = {
+  answers: {},
+};
+
+const $ = (selector) => document.querySelector(selector);
+const axisGrid = $("#axis-grid");
+const questionList = $("#question-list");
+const resultRoot = $("#result-root");
+const progressLabel = $("#progress-label");
+const progressPercent = $("#progress-percent");
+const progressBar = $("#progress-bar");
+const dogNameInput = $("#dog-name");
+const dogAgeInput = $("#dog-age");
+
+const personalityCardFilenames = {
+  DOGS: "DOGS.jpg",
+  DOGI: "DOGI.jpg",
+  DOES: "DOES.jpg",
+  DOEI: "DOEI.jpg",
+  DRGS: "DRGS.jpg",
+  DRGI: "DRGI.jpg",
+  DRES: "DRES.jpg",
+  DREI: "DREI.jpg",
+  COGS: "COGS.jpg",
+  COGI: "COGI.jpg",
+  COES: "COES.jpg",
+  COEI: "COEI.jpg",
+  CRGS: "CRGS.jpg",
+  CRGI: "CRGI.jpg",
+  CRES: "CRES.jpg",
+  CREI: "CREI.jpg",
+};
+
+const personalityCardAssets = Object.fromEntries(
+  Object.entries(personalityCardFilenames).map(([code, filename]) => [code, `./dogs-standalone-lite-assets/${filename}`]),
+);
+
+const overviewChartAsset = "./dogs-standalone-lite-assets/DOGS-atlas.png";
+
+const personalityNicknames = {
+  DOGS: "护主卷王",
+  DOGI: "自大狂",
+  DOES: "气氛组",
+  DOEI: "假文艺",
+  DRGS: "玻璃心",
+  DRGI: "偷窥狂",
+  DRES: "显眼包",
+  DREI: "狗格分裂",
+  COGS: "粘人精",
+  COGI: "中纪委",
+  COES: "倾诉者",
+  COEI: "摸鱼大师",
+  CRGS: "最强嘴替",
+  CRGI: "冷漠仙人",
+  CRES: "人来疯",
+  CREI: "人间清醒",
+};
+
+function escapeXml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function encodeAssetPath(path) {
+  return encodeURI(path).replaceAll("#", "%23");
+}
+
+function getPersonalityCardPath(code) {
+  const path = personalityCardAssets[code];
+  return path ? encodeAssetPath(path) : "";
+}
+
+function getPersonalityNickname(code) {
+  return personalityNicknames[code] || "狗狗人格";
+}
+
+function renderAxisCards() {
+  axisGrid.innerHTML = axisCopy
+    .map((axis) => {
+      const axisData = dogAxes[axis.key];
+      return `
+        <article class="axis-card">
+          <span>${axisData.label}</span>
+          <h3>${axisData.low}<em> / </em>${axisData.high}</h3>
+          <p>${axis.note}</p>
+          <div><small>${axis.left}</small><small>${axis.right}</small></div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderQuestions() {
+  questionList.innerHTML = dogQuestions
+    .map(
+      (question, index) => `
+        <article class="question-card">
+          <div class="question-title">
+            <span>${String(index + 1).padStart(2, "0")}</span>
+            <h3>${question.text}</h3>
+          </div>
+          <div class="option-grid">
+            ${question.options
+              .map(
+                (option) => `
+                  <button class="option" data-question="${question.id}" data-option="${option.id}" type="button">
+                    <b>${option.id.toUpperCase()}</b>
+                    ${option.text}
+                  </button>
+                `,
+              )
+              .join("")}
+          </div>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+function updateProgress() {
+  const answeredCount = Object.keys(state.answers).length;
+  const progress = Math.round((answeredCount / dogQuestions.length) * 100);
+  progressLabel.textContent = `已完成 ${answeredCount}/${dogQuestions.length}`;
+  progressPercent.textContent = `${progress}%`;
+  progressBar.style.width = `${progress}%`;
+}
+
+function updateSelectedButtons() {
+  document.querySelectorAll(".option").forEach((button) => {
+    const questionId = button.dataset.question;
+    const optionId = button.dataset.option;
+    button.classList.toggle("selected", state.answers[questionId] === optionId);
+  });
+}
+
+function buildReportText(result, dogName, dogAge) {
+  const nickname = getPersonalityNickname(result.code);
+  return `${dogName} 的 DOGS 狗狗人格测试结果：
+${result.code} · ${nickname} · ${result.name}
+${dogAge}
+${result.tagline}
+
+人格身份：
+${result.identityIntro}
+
+外在表现：
+${result.outerBehavior}
+
+心理洞察：
+${result.innerInsight}
+
+相处密码：
+- ${result.getAlongTips.join("\n- ")}
+
+容易被误解：
+- ${result.misunderstandings.join("\n- ")}
+
+陪伴建议：
+- ${result.companionshipAdvice.join("\n- ")}
+
+能力值：
+驱动力 ${result.percentages.drive}%
+探索度 ${result.percentages.openness}%
+守护度 ${result.percentages.guarding}%
+社交度 ${result.percentages.sociability}%
+
+${result.disclaimer}`;
+}
+
+function isMobileSaveFlow() {
+  const userAgent = navigator.userAgent || "";
+  return /Android|iPhone|iPad|iPod|Mobile|MicroMessenger|XiaoHongShu/i.test(userAgent) || navigator.maxTouchPoints > 1;
+}
+
+function downloadCard(result, dogName, dogAge) {
+  const nickname = getPersonalityNickname(result.code);
+  const assetPath = getPersonalityCardPath(result.code);
+
+  if (assetPath) {
+    if (isMobileSaveFlow()) {
+      const opened = window.open(assetPath, "_blank", "noopener");
+      if (!opened) window.location.href = assetPath;
+      return;
+    }
+
+    const link = document.createElement("a");
+    link.href = assetPath;
+    link.download = personalityCardFilenames[result.code] || `${result.code}-狗狗人格卡.png`;
+    link.click();
+    return;
+  }
+
+  const traits = result.keywords.slice(0, 4);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="2160" height="2880" viewBox="0 0 2160 2880">
+  <g transform="scale(2)">
+  <rect width="1080" height="1440" rx="64" fill="#FFF8EC"/>
+  <circle cx="120" cy="140" r="90" fill="#E7F1D8"/>
+  <circle cx="980" cy="240" r="130" fill="#F6DCC8"/>
+  <circle cx="900" cy="1220" r="180" fill="#E9F3ED"/>
+  <rect x="96" y="112" width="888" height="1216" rx="56" fill="#FFFDF8" stroke="#E8D7BF" stroke-width="4"/>
+  <text x="540" y="220" text-anchor="middle" font-size="42" font-family="Arial, sans-serif" fill="#8B674A">DOGS 狗狗人格测试</text>
+  <text x="540" y="380" text-anchor="middle" font-size="150" font-family="Arial, sans-serif" font-weight="800" fill="#3B2C22">${escapeXml(result.code)}</text>
+  <text x="540" y="455" text-anchor="middle" font-size="54" font-family="Arial, sans-serif" font-weight="700" fill="#A85F28">${escapeXml(nickname)}</text>
+  <text x="540" y="520" text-anchor="middle" font-size="40" font-family="Arial, sans-serif" font-weight="700" fill="#3B2C22">${escapeXml(result.name)}</text>
+  <text x="540" y="580" text-anchor="middle" font-size="34" font-family="Arial, sans-serif" fill="#8B674A">${escapeXml(dogName)} · ${escapeXml(dogAge)}</text>
+  <rect x="184" y="640" width="712" height="220" rx="36" fill="#F6EFE2"/>
+  <text x="540" y="710" text-anchor="middle" font-size="34" font-family="Arial, sans-serif" fill="#3B2C22">${escapeXml(traits[0])} · ${escapeXml(traits[1])}</text>
+  <text x="540" y="770" text-anchor="middle" font-size="34" font-family="Arial, sans-serif" fill="#3B2C22">${escapeXml(traits[2])} · ${escapeXml(traits[3])}</text>
+  <text x="540" y="830" text-anchor="middle" font-size="28" font-family="Arial, sans-serif" fill="#8B674A">不是乱贴标签，是从日常行为里读懂它</text>
+  <text x="540" y="960" text-anchor="middle" font-size="32" font-family="Arial, sans-serif" fill="#4B3A2F">${escapeXml(result.tagline)}</text>
+  <text x="540" y="1140" text-anchor="middle" font-size="30" font-family="Arial, sans-serif" fill="#8B674A">截图分享你家毛孩子的隐藏人格</text>
+  <text x="540" y="1210" text-anchor="middle" font-size="26" font-family="Arial, sans-serif" fill="#A88668">DOGS = Drive · Openness · Guarding · Sociability</text>
+  </g>
+</svg>`;
+
+  const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${dogName}-${result.code}-${nickname}.svg`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+async function copyText(text, button) {
+  await navigator.clipboard.writeText(text);
+  const oldText = button.textContent;
+  button.textContent = "已复制";
+  window.setTimeout(() => {
+    button.textContent = oldText;
+  }, 1600);
+}
+
+function resetTest() {
+  state.answers = {};
+  updateProgress();
+  updateSelectedButtons();
+  renderWaiting();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderListItems(items, tone = "default") {
+  return items
+    .map(
+      (item) => `
+        <li class="report-list-item report-list-item-${tone}">
+          <span>•</span>
+          <p>${item}</p>
+        </li>
+      `,
+    )
+    .join("");
+}
+
+function renderAbilityBars(result) {
+  return axisCopy
+    .map(
+      (axis) => `
+        <div class="bar-item">
+          <div><span>${axis.title}</span><b>${result.percentages[axis.key]}%</b></div>
+          <div class="bar-track"><i style="width:${result.percentages[axis.key]}%"></i></div>
+          <small>${axis.left} → ${axis.right}</small>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+function renderWaiting() {
+  resultRoot.className = "waiting-card";
+  resultRoot.innerHTML = `
+    <h2>答完 24 题后，这里会生成完整报告和可晒卡片</h2>
+  `;
+}
+
+function renderResultIfReady() {
+  if (Object.keys(state.answers).length !== dogQuestions.length) {
+    renderWaiting();
+    return;
+  }
+
+  const dogName = dogNameInput.value.trim() || "我家狗狗";
+  const dogAge = dogAgeInput.value;
+  const result = calculateDogPersonality(state.answers);
+  const nickname = getPersonalityNickname(result.code);
+  const reportText = buildReportText(result, dogName, dogAge);
+  const cardImagePath = getPersonalityCardPath(result.code);
+  const overviewImagePath = encodeAssetPath(overviewChartAsset);
+
+  resultRoot.className = "result-section";
+  resultRoot.innerHTML = `
+    <div class="section-heading centered">
+      <p class="eyebrow">测试完成</p>
+      <h2>${dogName} 是 ${result.code} · ${nickname}</h2>
+      <p>${result.name} · ${result.tagline}</p>
+    </div>
+    <div class="result-layout">
+      <article class="share-card" id="personality-card">
+        ${
+          cardImagePath
+            ? `
+              <div class="result-card-media">
+                <img src="${cardImagePath}" alt="${result.code} ${nickname} ${result.name} 狗狗人格卡" loading="eager" />
+              </div>
+            `
+            : `
+              <div class="share-card-fallback">
+                <p>DOGS 狗狗人格测试</p>
+                <strong>${result.code}</strong>
+                <h3>${nickname}</h3>
+                <span>${result.name}</span>
+                <small>${dogName} · ${dogAge}</small>
+                <div class="card-keywords">${result.keywords.map((keyword) => `<em>${keyword}</em>`).join("")}</div>
+                <blockquote>${result.tagline}</blockquote>
+              </div>
+            `
+        }
+        <div class="share-card-footer">
+          <p class="share-card-label">可晒人格卡</p>
+          <strong>${result.code} · ${nickname}</strong>
+          <span>${result.name}</span>
+          <small>${dogName} · ${dogAge}</small>
+        </div>
+      </article>
+
+      <article class="report-stack">
+        <section class="report-block identity-block">
+          <div class="report-block-head">
+            <span class="report-kicker">人格身份</span>
+            <strong>${result.code}</strong>
+          </div>
+          <h3>${nickname} · ${result.name}</h3>
+          <p class="report-tagline">${result.tagline}</p>
+          <div class="report-tags">
+            ${result.keywords.map((keyword) => `<em>${keyword}</em>`).join("")}
+          </div>
+          <p class="report-body">${result.identityIntro}</p>
+        </section>
+
+        <section class="report-block ability-block">
+          <div class="report-block-head">
+            <span class="report-kicker">能力值</span>
+          </div>
+          <div class="bar-list">
+            ${renderAbilityBars(result)}
+          </div>
+        </section>
+
+        <section class="report-block narrative-block">
+          <div class="report-block-head">
+            <span class="report-kicker">外在表现</span>
+          </div>
+          <p class="report-body">${result.outerBehavior}</p>
+        </section>
+
+        <section class="report-block narrative-block">
+          <div class="report-block-head">
+            <span class="report-kicker">心理洞察</span>
+          </div>
+          <p class="report-body">${result.innerInsight}</p>
+        </section>
+
+        <section class="report-block list-block">
+          <div class="report-block-head">
+            <span class="report-kicker">相处密码</span>
+          </div>
+          <ul class="report-list">
+            ${renderListItems(result.getAlongTips, "tips")}
+          </ul>
+        </section>
+
+        <section class="report-block list-block">
+          <div class="report-block-head">
+            <span class="report-kicker">容易被误解</span>
+          </div>
+          <ul class="report-list">
+            ${renderListItems(result.misunderstandings, "warning")}
+          </ul>
+        </section>
+
+        <section class="report-block list-block">
+          <div class="report-block-head">
+            <span class="report-kicker">陪伴建议</span>
+          </div>
+          <ul class="report-list">
+            ${renderListItems(result.companionshipAdvice, "soft")}
+          </ul>
+        </section>
+
+        <section class="report-block overview-block">
+          <div class="report-block-head">
+            <span class="report-kicker">16型图鉴</span>
+          </div>
+          <details class="overview-details">
+            <summary class="overview-summary">
+              <span class="overview-copy">
+                <span>想看它在整套 DOGS 里更像哪一型，可以顺手对照完整图鉴。</span>
+                <strong>查看大图</strong>
+              </span>
+              <img src="${overviewImagePath}" alt="DOGS 十六型狗狗人格图鉴预览" loading="lazy" />
+            </summary>
+            <div class="overview-expanded">
+              <img src="${overviewImagePath}" alt="DOGS 十六型狗狗人格图鉴大图" loading="lazy" />
+              <p>已展开完整图鉴，手机上可以长按图片保存。</p>
+            </div>
+          </details>
+        </section>
+      </article>
+    </div>
+    <div class="result-actions">
+      <button type="button" id="download-card">打开人格卡</button>
+      <button type="button" id="copy-report">复制报告文案</button>
+      <button type="button" class="ghost-button" id="reset-test">重新测试</button>
+    </div>
+  `;
+
+  $("#download-card").addEventListener("click", () => downloadCard(result, dogName, dogAge));
+  $("#copy-report").addEventListener("click", (event) => copyText(reportText, event.currentTarget));
+  $("#reset-test").addEventListener("click", resetTest);
+  resultRoot.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function bindEvents() {
+  questionList.addEventListener("click", (event) => {
+    const button = event.target.closest(".option");
+    if (!button) return;
+    state.answers[button.dataset.question] = button.dataset.option;
+    updateProgress();
+    updateSelectedButtons();
+    renderResultIfReady();
+  });
+}
+
+renderAxisCards();
+renderQuestions();
+bindEvents();
+updateProgress();
+renderWaiting();
+
+</script>
+  </body>
+</html>
